@@ -1,0 +1,5 @@
+/**
+ * Vue 3 Loading Overlay 0.0.0
+ * (c) 2020
+ * @license MIT
+ */
