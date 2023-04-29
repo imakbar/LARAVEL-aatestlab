@@ -373,7 +373,7 @@ export default defineComponent({
             var pay = caseData.value.pay?caseData.value.pay:0
             var dueAmount = caseData.value.dueAmount
 
-            var sumPaidPay : any = parseInt(paid) + parseInt(pay)
+            var sumPaidPay : any = parseInt(paid) //+ parseInt(pay)
 
             if(discountType == '%'){
                 netTotal = subTotal - subTotal/100*discount;
@@ -384,9 +384,9 @@ export default defineComponent({
 
             dueAmount = parseInt(netTotal) - parseInt(sumPaidPay)
 
-            caseData.value.netTotal = netTotal
-            caseData.value.dueAmount = dueAmount
-            caseData.value.pay = pay
+            caseData.value.netTotal = parseFloat(netTotal).toFixed(2)
+            caseData.value.dueAmount = parseFloat(dueAmount).toFixed(2)
+            caseData.value.pay = parseFloat(pay).toFixed(2)
         }
 
         const getData = () => {

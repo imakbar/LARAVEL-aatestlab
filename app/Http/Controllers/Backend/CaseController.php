@@ -500,6 +500,7 @@ class CaseController extends Controller
     public function paymentDelete($id){
         $PCR = new PatientCaseReceipt();
         $patientCaseReceiptId = $id;
+        $pCRData = $PCR->getById($patientCaseReceiptId);
         if($PCR->checkById($patientCaseReceiptId) == 0){
             return response()->json([
                 'success' => false,
@@ -508,6 +509,14 @@ class CaseController extends Controller
             ]);
         }
         $PCR->deleteById($patientCaseReceiptId);
+
+        if(PatientCaseReceipt::where('patientcase_id',$pCRData->patientcase_id)->count() == 0){
+            $PatientCase = PatientCase::where('id',$pCRData->patientcase_id)->first();
+            $PatientCase->discount_type = null;
+            $PatientCase->discount = 0;
+            $PatientCase->update();
+        }
+
         return response()->json([
             'success' => true,
             'type' => 'success',
