@@ -20,6 +20,18 @@ use App\Models\SubTest;
 use Illuminate\Support\Facades\Config;
 use Carbon\Carbon;
 
+if (!function_exists('dateFormat')) {
+    function dateFormat($date){
+        return date_format(date_create($date),'d-m-Y');
+    }
+}
+
+if (!function_exists('timeFormat')) {
+    function timeFormat($date){
+        return date_format(date_create($date),'h:i a');
+    }
+}
+
 if (!function_exists('addHours')) {
     function addHours($dateTime, $hours){
         $givenDateTime = Carbon::parse($dateTime);

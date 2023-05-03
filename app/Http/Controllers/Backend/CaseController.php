@@ -349,6 +349,8 @@ class CaseController extends Controller
 
                         // $reportGivenDate = addHours(date('Y-m-d H:i:s'), $SubTest['reporting_time']);
                         // $PatientCaseDetail->report_given_date = $reportGivenDate;
+                        $reportGivenDate = addHours(date('Y-m-d H:i:s'), $SubTest['reporting_time']);
+                        $PatientCaseDetail->report_given_date = $reportGivenDate;
         
                         $PatientCaseDetail->created_by = $getUser->id;
                         $PatientCaseDetail->created_date = date('Y-m-d');

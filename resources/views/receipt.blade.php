@@ -53,17 +53,21 @@
                             <td>
                                 <table cellspacing="0" border="1" width="100%" style="border-top:none;">
                                     <tr>
-                                        <th style="text-align: left;" width="110">Patient Number</th>
+                                        <th style="text-align: left;" width="80">Patient Number</th>
                                         <td>
-                                            <span v-if="patient">
+                                            @if($patient->patient_number)
                                                 {{$patient->patient_number}}
-                                            </span>
+                                            @else
+                                                N/A
+                                            @endif
                                         </td>
-                                        <th style="text-align: left;" width="110">Case Number</th>
+                                        <th style="text-align: left;" width="80">Case Number</th>
                                         <td>
-                                            <span v-if="record">
+                                            @if($patientCase->case_number)
                                                 {{$patientCase->case_number}}
-                                            </span>
+                                            @else
+                                                N/A
+                                            @endif
                                         </td>
                                     </tr>
                                 </table>
@@ -73,19 +77,21 @@
                             <td>
                                 <table cellspacing="0" border="1" width="100%" style="border-top:none;border-bottom:none;">
                                     <tr>
-                                        <th style="text-align: left;" width="110">Date/Time</th>
-                                        <td>{{$caseMaxDate}}</td>
-                                        <th style="text-align: left;" width="110">Lab Number</th>
+                                        <th style="text-align: left;" width="80">Date/Time</th>
+                                        <td width="200">{{$caseMaxDate}}</td>
+                                        <th style="text-align: left;" width="80">Lab Number</th>
                                         <td>0000</td>
                                     </tr>
                                     <tr>
-                                        <th style="text-align:left;">Patient</th>
+                                        <th style="text-align:left; vertical-align:top; ">Patient</th>
                                         <td>
-                                            <span v-if="patient">
+                                            @if($patient->name)
                                                 {{$patient->name}}
-                                            </span>
+                                            @else
+                                                N/A
+                                            @endif
                                         </td>
-                                        <th style="text-align:left;">Gender</th>
+                                        <th style="text-align:left; vertical-align:top; ">Gender</th>
                                         <td>
                                             @if($patient->gender)
                                                 {{$patient->gender->title}}
@@ -95,7 +101,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style="text-align:left;">Ref By</th>
+                                        <th style="text-align:left; vertical-align:top; ">Ref By</th>
                                         <td>
                                             @if($patientCase->reffer)
                                                 {{$patientCase->reffer->name}}
@@ -103,7 +109,7 @@
                                                 N/A
                                             @endif
                                         </td>
-                                        <th style="text-align:left;">Specimen</th>
+                                        <th style="text-align:left; vertical-align:top; ">Specimen</th>
                                         <td>
                                             @if($patientCase->SampleLocation)
                                                 {{$patientCase->SampleLocation->title}}
@@ -113,17 +119,21 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th style="text-align:left;">Address</th>
+                                        <th style="text-align:left; vertical-align:top; ">Address</th>
                                         <td>
-                                            <span v-if="patient">
+                                            @if($patient->address)
                                                 {{$patient->address}}
-                                            </span>
+                                            @else
+                                                N/A
+                                            @endif
                                         </td>
-                                        <th style="text-align:left;">Phone</th>
+                                        <th style="text-align:left; vertical-align:top; ">Phone</th>
                                         <td>
-                                            <span v-if="patient">
+                                            @if($patient->mobile)
                                                 {{$patient->mobile}}
-                                            </span>
+                                            @else
+                                                N/A
+                                            @endif
                                         </td>
                                     </tr>
                                 </table>
@@ -135,8 +145,8 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;" width="20">S.#</th>
-                                            <th style="text-align:left;">Tests</th>
-                                            <th width="100" style="text-align:center;">Report Date</th>
+                                            <th style="text-align:left; vertical-align:top; ">Tests</th>
+                                            <th width="100" style="text-align:let;">Report Date</th>
                                             <th width="60" style="text-align:right;">Charges</th>
                                         </tr>
                                     </thead>
@@ -149,9 +159,10 @@
                                                     {{$item->mainTest->test_name}}
                                                 @endif
                                             </td>
-                                            <td style="text-align:center;">
+                                            <td style="text-align:left;">
                                                 <span v-if="item.maintest_id">
-                                                    {{$item->report_given_date}}
+                                                    {{dateFormat($item->report_given_date)}}
+                                                    {{timeFormat($item->report_given_date)}}
                                                 </span>
                                             </td>
                                             <td style="text-align:right;">
@@ -171,23 +182,23 @@
                                         <td width="150">
                                             <table cellspacing="0" border="0" width="100%">
                                                 <tr>
-                                                    <th style="text-align:left;">Subtotal</th>
+                                                    <th style="text-align:left; vertical-align:top; ">Subtotal</th>
                                                     <td style="text-align:right;">{{$subTotal}}</td>
                                                 </tr>
                                                 <tr v-if="record.discounted != 0">
-                                                    <th style="text-align:left;">Discount</th>
+                                                    <th style="text-align:left; vertical-align:top; ">Discount</th>
                                                     <td style="text-align:right;">{{$discountedAmount}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th style="text-align:left;">Net Total</th>
+                                                    <th style="text-align:left; vertical-align:top; ">Net Total</th>
                                                     <td style="text-align:right;">{{$netTotal}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th style="text-align:left;">Paid</th>
+                                                    <th style="text-align:left; vertical-align:top; ">Paid</th>
                                                     <td style="text-align:right;">{{$paid}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th style="text-align:left;">Due Amount</th>
+                                                    <th style="text-align:left; vertical-align:top; ">Due Amount</th>
                                                     <td style="text-align:right;">{{$dueAmount}}</td>
                                                 </tr>
                                             </table>
