@@ -69,6 +69,13 @@ Route::post('/upload','Backend\FileManagerController@get');
 
 
 
+Route::post('/doctors/save','Backend\DoctorsController@save');
+Route::post('/doctors/edit','Backend\DoctorsController@edit');
+Route::post('/doctors/get','Backend\DoctorsController@get');
+Route::put('/doctors','Backend\DoctorsController@update');
+Route::put('/doctors/order-by','Backend\DoctorsController@updateOrderBy');
+Route::put('/doctors/bulk-action','Backend\DoctorsController@bulkAction');
+
 Route::post('/main-tests/save','Backend\MainTestsController@save');
 Route::post('/main-tests/edit','Backend\MainTestsController@edit');
 Route::post('/main-tests/get','Backend\MainTestsController@get');

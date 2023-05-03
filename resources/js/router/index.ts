@@ -32,6 +32,15 @@ const routes: Array<RouteRecordRaw> = [
                 // },
             },
             {
+                name: 'doctors',
+                path: '/admin/doctors/:status?',
+                component: () => import("@/components/Doctors.vue"),
+                // meta: {
+                //     transition: 'fade',
+                //     requiresAuth: false,
+                // },
+            },
+            {
                 name: 'tests',
                 path: '/admin/tests/:status?',
                 component: () => import("@/components/MainTests.vue"),

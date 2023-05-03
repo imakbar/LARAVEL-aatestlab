@@ -18,6 +18,8 @@ class CreateReffersTable extends Migration
 
             $table->softDeletes();
             
+            $table->integer('order_by')->nullable();
+            
             $table->string('name')->nullable();
             $table->string('mobile')->nullable();
             $table->string('address')->nullable();

@@ -105,8 +105,8 @@
                                         </td>
                                         <th style="text-align:left;">Specimen</th>
                                         <td>
-                                            @if($patientCase->sample_location)
-                                                {{$patientCase->sample_location->title}}
+                                            @if($patientCase->SampleLocation)
+                                                {{$patientCase->SampleLocation->title}}
                                             @else
                                                 N/A
                                             @endif

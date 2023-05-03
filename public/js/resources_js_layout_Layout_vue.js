@@ -325,34 +325,34 @@ var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 var _hoisted_20 = {
   key: 3,
-  "class": "navigation-header"
+  "class": "nav-item"
 };
 
 var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "menu-title text-truncate",
+  "data-i18n": "Doctors"
+}, "Doctors", -1
+/* HOISTED */
+);
+
+var _hoisted_22 = {
+  key: 4,
+  "class": "navigation-header"
+};
+
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "data-i18n": "Users"
 }, "Users", -1
 /* HOISTED */
 );
 
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "data-feather": "more-horizontal"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_23 = [_hoisted_21, _hoisted_22];
-var _hoisted_24 = {
-  key: 4,
-  "class": "nav-item"
-};
-
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "menu-title text-truncate",
-  "data-i18n": "Users"
-}, "Super Admins", -1
-/* HOISTED */
-);
-
+var _hoisted_25 = [_hoisted_23, _hoisted_24];
 var _hoisted_26 = {
   key: 5,
   "class": "nav-item"
@@ -361,56 +361,68 @@ var _hoisted_26 = {
 var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "menu-title text-truncate",
   "data-i18n": "Users"
-}, "Employee", -1
+}, "Super Admins", -1
 /* HOISTED */
 );
 
 var _hoisted_28 = {
   key: 6,
-  "class": "navigation-header"
+  "class": "nav-item"
 };
 
 var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "menu-title text-truncate",
+  "data-i18n": "Users"
+}, "Employee", -1
+/* HOISTED */
+);
+
+var _hoisted_30 = {
+  key: 7,
+  "class": "navigation-header"
+};
+
+var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "data-i18n": "Others"
 }, "Others", -1
 /* HOISTED */
 );
 
-var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "data-feather": "more-horizontal"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_31 = [_hoisted_29, _hoisted_30];
-var _hoisted_32 = {
-  key: 7,
+var _hoisted_33 = [_hoisted_31, _hoisted_32];
+var _hoisted_34 = {
+  key: 8,
   "class": "nav-item"
 };
-var _hoisted_33 = {
+var _hoisted_35 = {
   "class": "d-flex align-items-center",
   href: "#"
 };
 
-var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "menu-title text-truncate",
   "data-i18n": "Roles & Permissions"
 }, "Roles & Permissions", -1
 /* HOISTED */
 );
 
-var _hoisted_35 = {
+var _hoisted_37 = {
   "class": "menu-content"
 };
 
-var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "menu-title text-truncate",
   "data-i18n": "Roles"
 }, "Roles", -1
 /* HOISTED */
 );
 
-var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "menu-title text-truncate",
   "data-i18n": "Permissions"
 }, "Permissions", -1
@@ -496,25 +508,25 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["to"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.Helpers.roleSlug() == 'super_admin' || _ctx.Helpers.roleSlug() == 'administrator' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_20, _hoisted_23)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.Helpers.roleSlug() == 'super_admin' || _ctx.Helpers.roleSlug() == 'administrator' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_24, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  , ["to"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.Helpers.roleSlug() == 'super_admin' || _ctx.Helpers.roleSlug() == 'administrator' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_20, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     "class": "d-flex align-items-center",
-    to: _ctx.Helpers.appEndPoint() + '/users/super-admins'
+    to: _ctx.Helpers.appEndPoint() + '/doctors'
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_vue_feather, {
         "class": "icon",
-        type: "users",
+        type: "smile",
         size: "16"
-      }), _hoisted_25];
+      }), _hoisted_21];
     }),
     _: 1
     /* STABLE */
 
   }, 8
   /* PROPS */
-  , ["to"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.Helpers.roleSlug() == 'super_admin' || _ctx.Helpers.roleSlug() == 'employee' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  , ["to"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.Helpers.roleSlug() == 'super_admin' || _ctx.Helpers.roleSlug() == 'administrator' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_22, _hoisted_25)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.Helpers.roleSlug() == 'super_admin' || _ctx.Helpers.roleSlug() == 'administrator' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     "class": "d-flex align-items-center",
-    to: _ctx.Helpers.appEndPoint() + '/users/employee'
+    to: _ctx.Helpers.appEndPoint() + '/users/super-admins'
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_vue_feather, {
@@ -528,11 +540,27 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   }, 8
   /* PROPS */
-  , ["to"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li v-if=\"Helpers.roleSlug() == 'super_admin' || Helpers.roleSlug() == 'administrator'\" class=\"nav-item\"><router-link class=\"d-flex align-items-center\" :to=\"Helpers.appEndPoint()+'/users/normal-users'\"><vue-feather class=\"icon\" type=\"users\" size=\"16\"></vue-feather><span class=\"menu-title text-truncate\" data-i18n=\"Users\">Normal Users</span></router-link></li> "), _ctx.Helpers.roleSlug() == 'super_admin' || _ctx.Helpers.roleSlug() == 'administrator' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_28, _hoisted_31)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li v-if=\"Helpers.roleSlug() == 'super_admin' || Helpers.roleSlug() == 'administrator'\" class=\"nav-item\"><router-link class=\"d-flex align-items-center\" :to=\"Helpers.appEndPoint()+'/groups'\"><vue-feather class=\"icon\" type=\"users\" size=\"16\"></vue-feather><span class=\"menu-title text-truncate\" data-i18n=\"Users\">Groups</span></router-link></li> "), _ctx.Helpers.roleSlug() == 'super_admin' || _ctx.Helpers.roleSlug() == 'administrator' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_vue_feather, {
+  , ["to"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _ctx.Helpers.roleSlug() == 'super_admin' || _ctx.Helpers.roleSlug() == 'employee' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+    "class": "d-flex align-items-center",
+    to: _ctx.Helpers.appEndPoint() + '/users/employee'
+  }, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_vue_feather, {
+        "class": "icon",
+        type: "users",
+        size: "16"
+      }), _hoisted_29];
+    }),
+    _: 1
+    /* STABLE */
+
+  }, 8
+  /* PROPS */
+  , ["to"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li v-if=\"Helpers.roleSlug() == 'super_admin' || Helpers.roleSlug() == 'administrator'\" class=\"nav-item\"><router-link class=\"d-flex align-items-center\" :to=\"Helpers.appEndPoint()+'/users/normal-users'\"><vue-feather class=\"icon\" type=\"users\" size=\"16\"></vue-feather><span class=\"menu-title text-truncate\" data-i18n=\"Users\">Normal Users</span></router-link></li> "), _ctx.Helpers.roleSlug() == 'super_admin' || _ctx.Helpers.roleSlug() == 'administrator' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_30, _hoisted_33)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <li v-if=\"Helpers.roleSlug() == 'super_admin' || Helpers.roleSlug() == 'administrator'\" class=\"nav-item\"><router-link class=\"d-flex align-items-center\" :to=\"Helpers.appEndPoint()+'/groups'\"><vue-feather class=\"icon\" type=\"users\" size=\"16\"></vue-feather><span class=\"menu-title text-truncate\" data-i18n=\"Users\">Groups</span></router-link></li> "), _ctx.Helpers.roleSlug() == 'super_admin' || _ctx.Helpers.roleSlug() == 'administrator' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_vue_feather, {
     "class": "icon",
     type: "shield",
     size: "16"
-  }), _hoisted_34]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }), _hoisted_36]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     "class": "d-flex align-items-center",
     to: _ctx.Helpers.appEndPoint() + '/setup/roles'
   }, {
@@ -541,7 +569,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "icon",
         type: "minus",
         size: "16"
-      }), _hoisted_36];
+      }), _hoisted_38];
     }),
     _: 1
     /* STABLE */
@@ -557,7 +585,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "class": "icon",
         type: "minus",
         size: "16"
-      }), _hoisted_37];
+      }), _hoisted_39];
     }),
     _: 1
     /* STABLE */

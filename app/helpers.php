@@ -1329,7 +1329,7 @@ if (!function_exists('getPatientCaseTestsForReceipt')) {
                 if($details->count() > 0){
                     $subtestIds = $details->pluck('subtest_id');
                     if($m->MainTest->package_price != 0 && SubTest::whereIn('id',$subtestIds)->count() == SubTest::where('maintest_id',$m['maintest_id'])->count()){
-                        $total = $m->MainTest->package_price;
+                        $total += $m->MainTest->package_price;
                     } else {
                         $total += SubTest::whereIn('id',$subtestIds)->sum('test_rate');
                     }

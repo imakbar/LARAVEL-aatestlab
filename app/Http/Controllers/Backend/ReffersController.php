@@ -10,6 +10,6 @@ use App\Models\Reffer;
 class ReffersController extends Controller
 {
     public function get(){
-        return Reffer::where('status','active')->get();
+        return Reffer::where('status','active')->orderBy('order_by','ASC')->get();
     }
 }
