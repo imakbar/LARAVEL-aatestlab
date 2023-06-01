@@ -37,6 +37,62 @@
                 </div>
             </div>
             <div class="content-body" ref="loadingRefContainer">
+                
+                <div class="row">
+                    <div class="col-sm-1 mb-15">
+                        <label class="form-label">Patient#</label>
+                        <input type="text" class="form-control" @change.prevent="getItems()" v-model="search.patient_number" />
+                    </div>
+                    <div class="col-sm-3 mb-15">
+                        <label class="form-label">Patient Name</label>
+                        <input type="text" class="form-control" @change.prevent="getItems()" v-model="search.name" />
+                    </div>
+                    <div class="col-sm-2 mb-15">
+                        <label class="form-label">Gender</label>
+                        <v-select
+                            id="gender_id"
+                            class="dropdown"
+                            v-model="search.gender_id"
+                            placeholder="--Select--"
+                            :clearable="true"
+                            :reduce="(option) => option.id"
+                            :options="genders"
+                            label="title"
+                            @close="getItems()"
+                        >
+                            <template v-slot:option="option">
+                                <div class="list-item">
+                                    {{ option.title }}
+                                </div>
+                            </template>
+                        </v-select>
+                    </div>
+                    <div class="col-sm-3 mb-15">
+                        <label class="form-label">Reffer(Doctor)</label>
+                        <v-select
+                            id="gender_id"
+                            class="dropdown"
+                            v-model="search.reffer_id"
+                            placeholder="--Select--"
+                            :clearable="true"
+                            :reduce="(option) => option.id"
+                            :options="reffers"
+                            label="name"
+                            @close="getItems()"
+                        >
+                            <template v-slot:option="option">
+                                <div class="list-item">
+                                    {{ option.name }}
+                                </div>
+                            </template>
+                        </v-select>
+                    </div>
+                    <div class="col-sm-3 mb-15">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control" @change.prevent="getItems()" v-model="search.address" />
+                    </div>
+                </div>
+
                 <section class="app-user-list">
                     <div class="card">
                         
@@ -135,10 +191,24 @@
                                                 <input class="form-check-input" type="checkbox" id="inlineCheckbox1" :value="item.id" v-model="selectedItems" @change="selectItem" />
                                             </td>
                                             <td>
-                                                <PatientAvatarAndName :user="item"></PatientAvatarAndName>
-                                            </td>
-                                            <td>
-                                                <span>{{item.patient_number}}</span>
+                                                <div class="d-flex justify-content-left align-items-center">
+                                                    <div class="avatar-wrapper" v-if="item">
+                                                        <span class="mr-15">
+                                                            <PatientAvatar :user="item"></PatientAvatar>
+                                                        </span>
+                                                    </div>
+                                                    <div class="d-flex flex-column">
+                                                        <span class="text-size-11 text-bold">{{item.patient_number}}</span>
+                                                        <span class="user_name text-body text-truncate" v-if="item">
+                                                            <span class="fw-bolder">
+                                                                {{item.name}}
+                                                            </span>
+                                                        </span>
+                                                        <small class="emp_post text-muted">
+                                                            {{item.address}}
+                                                        </small>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td>
                                                 <span v-if="item.gender">{{item.gender.title}}</span>
@@ -231,7 +301,7 @@ import { Actions, Mutations } from "../store/enums/StoreEnums";
 
 import PatientsModal from "@/components/modals/PatientsModal.vue";
 import Status from "@/components/global/Status.vue";
-import PatientAvatarAndName from "@/components/global/PatientAvatarAndName.vue";
+import PatientAvatar from "@/components/global/PatientAvatar.vue";
 import PermissionError from "@/components/global/PermissionError.vue";
 import GlobalLoader from "@/components/global/Loader.vue";
 import Swal from 'sweetalert2'
@@ -241,7 +311,7 @@ export default defineComponent({
     name: "patients",
     components: {
         Status,
-        PatientAvatarAndName,
+        PatientAvatar,
         PermissionError,
         PatientsModal,
         // Loading,
@@ -272,6 +342,7 @@ export default defineComponent({
     // },
     created(){
         this.getItems()
+        this.loadData()
     },
     // destroyed() {},
     methods:{
@@ -361,6 +432,29 @@ export default defineComponent({
         const showModal = ref(false)
         const modalName = ref('')
         const roleId : any = ref('')
+
+        const search : any = ref({})
+        const genders : any = ref([]);
+        const reffers : any = ref([]);
+
+        const loadData = () => {
+            getGenders()
+            getReffers()
+        }
+        
+		const getGenders = () => {
+			axios.get(Helpers.completeUrl()+'/get/genders')
+			.then((res) => {
+				genders.value = res.data
+            })
+        }
+
+		const getReffers = () => {
+			axios.get(Helpers.completeUrl()+'/get/reffers')
+			.then((res) => {
+				reffers.value = res.data
+            })
+        }
         
         onMounted(() => {
             // window.addEventListener('mousemovenow', (event) => {
@@ -375,6 +469,7 @@ export default defineComponent({
         const getItems = (page = 1) => {
             loaderSettings.value.active = true;
             axios.post(Helpers.completeUrl()+pageLevelEndPoint.value+'/get?status='+activeStatus.value+'&page='+page,{
+                search: search.value,
                 perPageAction: perPageAction.value,
                 orderByAction: orderByAction.value,
             })
@@ -767,6 +862,10 @@ export default defineComponent({
             modalName,
             Helpers,
             roleId,
+            search,
+            loadData,
+            genders,
+            reffers,
         }
     }
 });

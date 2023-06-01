@@ -109,14 +109,14 @@ class Patient extends Model
                 "class" => "text-left",
                 "sort" => "",
             ],
-            [
-                "label" => "Number",
-                "field" => "patient_number",
-                "sorting" => true,
-                "width" => "auto",
-                "class" => "text-left",
-                "sort" => "",
-            ],
+            // [
+            //     "label" => "Number",
+            //     "field" => "patient_number",
+            //     "sorting" => true,
+            //     "width" => "auto",
+            //     "class" => "text-left",
+            //     "sort" => "",
+            // ],
             [
                 "label" => "Gender",
                 "field" => "gender_id",

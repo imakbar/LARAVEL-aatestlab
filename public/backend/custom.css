@@ -21,6 +21,8 @@
 .w-150 { width: 150px; }
 .min-h-300 { min-height: 250px; }
 
+.text-size-11 { font-size: 11px; }
+
 .selectionTd { text-align: center; }
 .statusTd { text-align: center; }
 .dateTd { text-align: center; }

@@ -61,6 +61,28 @@ class PatientsController extends Controller
             }
         }
 
+        // Search
+        if(isset($request->search['patient_number'])){
+            $patient_number = $request->search['patient_number'];
+            $Patients = $Patients->where("patient_number", "LIKE", "%$patient_number%");
+        }
+        if(isset($request->search['name'])){
+            $name = $request->search['name'];
+            $Patients = $Patients->where("name", "LIKE", "%$name%");
+        }
+        if(isset($request->search['gender_id'])){
+            $gender_id = $request->search['gender_id'];
+            $Patients = $Patients->where("gender_id", $gender_id);
+        }
+        if(isset($request->search['reffer_id'])){
+            $reffer_id = $request->search['reffer_id'];
+            $Patients = $Patients->where("reffer_id", $reffer_id);
+        }
+        if(isset($request->search['address'])){
+            $address = $request->search['address'];
+            $Patients = $Patients->where("address", "LIKE", "%$address%");
+        }
+
         $orderByAction = checkValueNotEmptyInArray($Patient->tableColumns());
         $orderByAction = $request->orderByAction?$request->orderByAction:$orderByAction;
         if(keyExists($orderByAction,'field')){
@@ -134,136 +156,167 @@ class PatientsController extends Controller
     }
 
     public function save(Request $request){
-        $request->request->add([
-            'created_by' 	    => getUserId(),
-            'created_date' 	    => date('Y-m-d'),
-            'created_time' 	    => date('H:i:s'),
-            'updated_by' 	    => getUserId(),
-            'updated_date' 	    => date('Y-m-d'),
-            'updated_time' 	    => date('H:i:s'),
-            'reg_date_time' 	=> date('Y-m-d H:i:s'),
-            'reg_date' 	        => date('Y-m-d'),
-            'reg_time' 	        => date('H:i:s'),
-        ]);
-
-        $attributeNames = [
-            'name'              => 'name',
-            'age'               => 'age',
-            'gender_id'         => 'gender_id',
-            'mobile'            => 'mobile',
-            'address'           => 'address',
-            'reffer_id'         => 'reffer_id',
-            'status'            => 'status',
-        ];
-
-        $rules = [
-            // "email" => "required|min:1|max:100|unique_with:patients",
-            'name'              => 'required|min:2|max:150',
-            'age'               => 'required|numeric|min:1|max:200',
-            'gender_id'         => 'required',
-            'mobile'            => 'required|max:20',
-            // 'address'           => 'required|max:200',
-            // 'reffer_id'         => 'required',
-            // 'status'            => 'required',
-            // 'samplelocation_id' => 'required'
-        ];
-
-        if($request->address != ''){
-            $rules['address'] = 'max:200';
-        }
-
-        $messages = [
-        ];
-
-        $Validator = Validator::make($request->all(), $rules, $messages);
-        $Validator->setAttributeNames($attributeNames);
-
-        if ($Validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors' => $Validator->errors(),
+        try {
+            $request->request->add([
+                'created_by' 	    => getUserId(),
+                'created_date' 	    => date('Y-m-d'),
+                'created_time' 	    => date('H:i:s'),
+                'updated_by' 	    => getUserId(),
+                'updated_date' 	    => date('Y-m-d'),
+                'updated_time' 	    => date('H:i:s'),
+                'reg_date_time' 	=> date('Y-m-d H:i:s'),
+                'reg_date' 	        => date('Y-m-d'),
+                'reg_time' 	        => date('H:i:s'),
             ]);
-        } 
-        else 
-        {
-            $P = new Patient();
-
-            if($P->GetByMobile($request->mobile)->count() > 0){
-                $Patient = $P->GetByMobile($request->mobile)->first();
-                $Patient->update($request->all());
-            } else {
-                $Patient = $P->create($request->all());
-                $Patient->patient_number = $Patient->id.'-100';
-                $Patient->update();
+    
+            $attributeNames = [
+                'name'              => 'name',
+                'age'               => 'age',
+                'gender_id'         => 'gender_id',
+                'mobile'            => 'mobile',
+                'address'           => 'address',
+                'reffer_id'         => 'reffer_id',
+                'status'            => 'status',
+            ];
+    
+            $rules = [
+                // "email" => "required|min:1|max:100|unique_with:patients",
+                'name'              => 'required|min:2|max:150',
+                'age'               => 'required|numeric|min:1|max:200',
+                'gender_id'         => 'required',
+                // 'mobile'            => 'required|max:20',
+                // 'address'           => 'required|max:200',
+                // 'reffer_id'         => 'required',
+                // 'status'            => 'required',
+                // 'samplelocation_id' => 'required'
+            ];
+    
+            if($request->mobile != ''){
+                $rules['mobile'] = 'max:20';
             }
-
+    
+            if($request->address != ''){
+                $rules['address'] = 'max:200';
+            }
+    
+            $messages = [
+            ];
+    
+            $Validator = Validator::make($request->all(), $rules, $messages);
+            $Validator->setAttributeNames($attributeNames);
+    
+            if ($Validator->fails()) {
+                return response()->json([
+                    'status' => 'error',
+                    'success'   => false,
+                    'message' => 'fix errors',
+                    'errors' => $Validator->errors(),
+                ], 500);
+            } 
+            else 
+            {
+                $P = new Patient();
+    
+                if($P->GetByMobile($request->mobile)->count() > 0){
+                    $Patient = $P->GetByMobile($request->mobile)->first();
+                    $Patient->update($request->all());
+                } else {
+                    $Patient = $P->create($request->all());
+                    $Patient->patient_number = $Patient->id.'-100';
+                    $Patient->update();
+                }
+    
+                return response()->json([
+                    'status' => 'success',
+                    'success' => true,
+                    'message' => 'Record created successfully',
+                    'errors'    => []
+                ],200);
+            }
+        } catch (\Throwable $th) {
             return response()->json([
-                'status' => 'success',
-                'success' => true,
-                'message' => 'Record created successfully',
-            ]);
+                'status'    => 'error',
+                'success'   => false,
+                'message'   => 'An error occurred.',
+                'errors'    => ['error' => [0 => $th->getMessage()]]
+            ], 500);
         }
     }
 
     public function update(Request $request){
-        $Patient = Patient::findOrFail($request->id);
-
-        $request->request->add([
-            'updated_by' 	    => getUserId(),
-            'updated_date' 	    => date('Y-m-d'),
-            'updated_time' 	    => date('H:i:s'),
-            'reg_date_time' 	=> date('Y-m-d H:i:s'),
-            'reg_date' 	        => date('Y-m-d'),
-            'reg_time' 	        => date('H:i:s'),
-        ]);
-
-        $attributeNames = [
-            'name'              => 'name',
-            'age'               => 'age',
-            'gender_id'         => 'gender_id',
-            'mobile'            => 'mobile',
-            'address'           => 'address',
-            'reffer_id'         => 'reffer_id',
-            'status'            => 'status',
-        ];
-
-        $rules = [
-            // "email" => "required|min:1|max:100|unique_with:patients",
-            'name'              => 'required|min:2|max:150',
-            'age'               => 'required|numeric|min:1|max:200',
-            'gender_id'         => 'required',
-            'mobile'            => 'required|max:20',
-            // 'address'           => 'required|max:200',
-            'reffer_id'         => 'required',
-            // 'status'            => 'required',
-            // 'samplelocation_id' => 'required'
-        ];
-
-        if($request->address != ''){
-            $rules['address'] = 'max:200';
-        }
-
-        $messages = [
-        ];
-
-        $Validator = Validator::make($request->all(), $rules, $messages);
-        $Validator->setAttributeNames($attributeNames);
-
-        if ($Validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'fix errors',
-                'errors' => $Validator->errors(),
+        try {
+            $Patient = Patient::findOrFail($request->id);
+    
+            $request->request->add([
+                'updated_by' 	    => getUserId(),
+                'updated_date' 	    => date('Y-m-d'),
+                'updated_time' 	    => date('H:i:s'),
+                'reg_date_time' 	=> date('Y-m-d H:i:s'),
+                'reg_date' 	        => date('Y-m-d'),
+                'reg_time' 	        => date('H:i:s'),
             ]);
-        } 
-        else 
-        {
-            $Patient->update($request->all());
-
+    
+            $attributeNames = [
+                'name'              => 'name',
+                'age'               => 'age',
+                'gender_id'         => 'gender_id',
+                'mobile'            => 'mobile',
+                'address'           => 'address',
+                'reffer_id'         => 'reffer_id',
+                'status'            => 'status',
+            ];
+    
+            $rules = [
+                // "email" => "required|min:1|max:100|unique_with:patients",
+                'name'              => 'required|min:2|max:150',
+                'age'               => 'required|numeric|min:1|max:200',
+                'gender_id'         => 'required',
+                // 'mobile'            => 'required|max:20',
+                // 'address'           => 'required|max:200',
+                // 'reffer_id'         => 'required',
+                // 'status'            => 'required',
+                // 'samplelocation_id' => 'required'
+            ];
+    
+            if($request->mobile != ''){
+                $rules['mobile'] = 'max:20';
+            }
+    
+            if($request->address != ''){
+                $rules['address'] = 'max:200';
+            }
+    
+            $messages = [
+            ];
+    
+            $Validator = Validator::make($request->all(), $rules, $messages);
+            $Validator->setAttributeNames($attributeNames);
+    
+            if ($Validator->fails()) {
+                return response()->json([
+                    'status' => 'error',
+                    'success'   => false,
+                    'message' => 'fix errors',
+                    'errors' => $Validator->errors(),
+                ], 500);
+            } 
+            else 
+            {
+                $Patient->update($request->all());
+                return response()->json([
+                    'status' => 'success',
+                    'success' => true,
+                    'message' => 'Record updated successfully',
+                    'errors'    => []
+                ],200);
+            }
+        } catch (\Throwable $th) {
             return response()->json([
-                'status' => 'success',
-                'message' => 'Record updated successfully',
-            ]);
+                'status'    => 'error',
+                'success'   => false,
+                'message'   => 'An error occurred.',
+                'errors'    => ['error' => [0 => $th->getMessage()]]
+            ], 500);
         }
     }
 

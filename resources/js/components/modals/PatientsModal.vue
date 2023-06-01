@@ -272,48 +272,45 @@ export default defineComponent({
             axios.post(Helpers.completeUrl()+pageLevelEndPoint.value+'/save', record.value)
                 .then((res) => {
                     btnLoader.value.active = false;
-                    if(res.data.status == 'success'){
-                        errors.value = []
-                        parentToChild()
-                        sweetalertMessage({
-                            status: res.data.status,
-                            title: '',
-                            message: res.data.message,
-                            position: 'bottom-end',
-                            timer: 5000,
-                            progressBar: true,
-                            toast: true,
-                            showConfirmButton: false,
-                        })
-                        setTimeout(() => {
-                            closeModal()
-                        },1000)
-                    } else {
-                        errors.value = res.data.errors
-                        sweetalertMessage({
-                            status: res.data.status,
-                            title: '',
-                            message: res.data.message,
-                            position: 'bottom-end',
-                            timer: 5000,
-                            progressBar: true,
-                            toast: true,
-                            showConfirmButton: false,
-                        })
-                    }
-                })
-                .catch((error) => {
+                    errors.value = []
+                    parentToChild()
                     sweetalertMessage({
-                        status: 'error',
+                        status: res.data.status,
                         title: '',
-                        message: error.response.data.message,
+                        message: res.data.message,
                         position: 'bottom-end',
                         timer: 5000,
                         progressBar: true,
                         toast: true,
                         showConfirmButton: false,
                     })
+                    setTimeout(() => {
+                        closeModal()
+                    },1000)
+                })
+                .catch((error:any) => {
                     btnLoader.value.active = false;
+                    var errorData = error.response.data
+                    errors.value = errorData.errors
+                    var errorMessage : any = '';
+                    if(errorData.errors && errorData.errors.length > 0){
+                        errorMessage = errorData.errors[0]; // Get the first resData message
+                    } else if (Object.keys(errorData.errors).length > 0) {
+                        const errorMessages = Object.values(errorData.errors);
+                        errorMessage = errorMessages.shift(); // Get the first resData message
+                    } else {
+                        errorMessage = errorData.message
+                    }
+                    sweetalertMessage({
+                        status: 'error',
+                        title: '',
+                        message: errorMessage,
+                        position: 'bottom-end',
+                        timer: 5000,
+                        progressBar: true,
+                        toast: true,
+                        showConfirmButton: false,
+                    })
                 });
         }
 
@@ -336,41 +333,39 @@ export default defineComponent({
         const updateBtn = () => {
             axios.put(Helpers.completeUrl()+pageLevelEndPoint.value, record.value)
                 .then((res) => {
-                    if(res.data.status == 'success'){
-                        errors.value = []
-                        parentToChild()
-                        sweetalertMessage({
-                            status: res.data.status,
-                            title: '',
-                            message: res.data.message,
-                            position: 'bottom-end',
-                            timer: 5000,
-                            progressBar: true,
-                            toast: true,
-                            showConfirmButton: false,
-                        })
-                        setTimeout(() => {
-                            closeModal()
-                        },1000)
-                    } else {
-                        errors.value = res.data.errors
-                        sweetalertMessage({
-                            status: res.data.status,
-                            title: '',
-                            message: res.data.message,
-                            position: 'bottom-end',
-                            timer: 5000,
-                            progressBar: true,
-                            toast: true,
-                            showConfirmButton: false,
-                        })
-                    }
+                    errors.value = []
+                    parentToChild()
+                    sweetalertMessage({
+                        status: res.data.status,
+                        title: '',
+                        message: res.data.message,
+                        position: 'bottom-end',
+                        timer: 5000,
+                        progressBar: true,
+                        toast: true,
+                        showConfirmButton: false,
+                    })
+                    setTimeout(() => {
+                        closeModal()
+                    },1000)
                 })
-                .catch((error) => {
+                .catch((error:any) => {
+                    btnLoader.value.active = false;
+                    var errorData = error.response.data
+                    errors.value = errorData.errors
+                    var errorMessage : any = '';
+                    if(errorData.errors && errorData.errors.length > 0){
+                        errorMessage = errorData.errors[0]; // Get the first resData message
+                    } else if (Object.keys(errorData.errors).length > 0) {
+                        const errorMessages = Object.values(errorData.errors);
+                        errorMessage = errorMessages.shift(); // Get the first resData message
+                    } else {
+                        errorMessage = errorData.message
+                    }
                     sweetalertMessage({
                         status: 'error',
                         title: '',
-                        message: error.response.data.message,
+                        message: errorMessage,
                         position: 'bottom-end',
                         timer: 5000,
                         progressBar: true,
