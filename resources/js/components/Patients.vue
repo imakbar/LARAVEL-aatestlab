@@ -211,6 +211,18 @@
                                                 </div>
                                             </td>
                                             <td>
+                                                <span v-if="item.cases && item.cases.length > 0">
+                                                    <div>
+                                                        {{ item.cases[0].created_date }}
+                                                    </div>
+                                                    <span v-if="item.cases[0] && item.cases[0].details">
+                                                        <span v-for="(t,subIndex) in item.cases[0].details" :key="subIndex">
+                                                            <span v-if="t.main_test" class="badge mr-4 mt-2 mb-2 bg-primary">{{t.main_test.test_name}}</span>
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                            </td>
+                                            <td>
                                                 <span v-if="item.gender">{{item.gender.title}}</span>
                                             </td>
                                             <td>

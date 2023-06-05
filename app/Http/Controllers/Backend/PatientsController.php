@@ -39,6 +39,18 @@ class PatientsController extends Controller
         $Patient = new Patient();
         $Patients = $Patient;
 
+        $Patients = $Patients->with(['Cases' => function ($query) {
+            $query->with(['Details' => function ($query) {
+                $query->select('id', 'patient_id', 'patientcase_id', 'maintest_id')
+                    ->orderByDesc('id')
+                    ->groupBy('maintest_id')
+                    ->with('MainTest');
+            }])
+            ->select('id', 'patient_id', 'created_date', 'reffer_id')
+            ->orderBy('id', 'desc')
+            ->limit(1);
+        }]);
+
         $perPageAction = $request->perPageAction;
 
         if($request->get('status')){

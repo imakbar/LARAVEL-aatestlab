@@ -118,6 +118,14 @@ class Patient extends Model
             //     "sort" => "",
             // ],
             [
+                "label" => "Last Test",
+                "field" => "last_test",
+                "sorting" => false,
+                "width" => "auto",
+                "class" => "text-left",
+                "sort" => "",
+            ],
+            [
                 "label" => "Gender",
                 "field" => "gender_id",
                 "sorting" => true,
@@ -150,5 +158,9 @@ class Patient extends Model
                 "sort" => "",
             ]
         ];
+    }
+
+    public function Cases(){
+        return $this->hasMany(PatientCase::class, 'patient_id','id');
     }
 }

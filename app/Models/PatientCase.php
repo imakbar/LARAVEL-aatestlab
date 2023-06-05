@@ -54,6 +54,11 @@ class PatientCase extends Model
         return $this->hasMany(PatientCaseReceipt::class,'patientcase_id','id')->orderBy('id','DESC');
     }
 
+    public function Details()
+    {
+        return $this->hasMany(PatientCaseDetail::class, 'patientcase_id', 'id');
+    }
+
 
     
 
