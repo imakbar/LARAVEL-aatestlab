@@ -35,7 +35,7 @@ class CaseController extends Controller
     public function get(Request $request){
         $PatientCase = new PatientCase();
         $PaitentCases = $PatientCase->leftJoin('patients','patients.id','=','patient_cases.patient_id')->leftJoin('genders','genders.id','=','patients.gender_id')->select(
-            'patient_cases.*','patients.name','patients.patient_number','patients.age','patients.mobile','patients.address','genders.title as gender'
+            'patient_cases.*','patients.name','patients.patient_number','patients.age','patients.mobile','patients.address','genders.title as gender','patients.gender_id'
         );
 
         $perPageAction = $request->perPageAction;
@@ -58,6 +58,32 @@ class CaseController extends Controller
                     }
                 }
             }
+        }
+
+        // Search
+        if(isset($request->search['patient_number'])){
+            $patient_number = $request->search['patient_number'];
+            $PaitentCases = $PaitentCases->where("patients.patient_number", "LIKE", "%$patient_number%");
+        }
+        if(isset($request->search['name'])){
+            $name = $request->search['name'];
+            $PaitentCases = $PaitentCases->where("patients.name", "LIKE", "%$name%");
+        }
+        if(isset($request->search['mobile'])){
+            $mobile = $request->search['mobile'];
+            $PaitentCases = $PaitentCases->where("patients.mobile", "LIKE", "%$mobile%");
+        }
+        if(isset($request->search['gender_id'])){
+            $gender_id = $request->search['gender_id'];
+            $PaitentCases = $PaitentCases->where("patients.gender_id", $gender_id);
+        }
+        if(isset($request->search['reffer_id'])){
+            $reffer_id = $request->search['reffer_id'];
+            $PaitentCases = $PaitentCases->where("patient_cases.reffer_id", $reffer_id);
+        }
+        if(isset($request->search['address'])){
+            $address = $request->search['address'];
+            $PaitentCases = $PaitentCases->where("patients.address", "LIKE", "%$address%");
         }
 
         $orderByAction = checkValueNotEmptyInArray($PatientCase->tableColumns());

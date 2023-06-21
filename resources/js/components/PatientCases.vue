@@ -37,6 +37,66 @@
                 </div>
             </div>
             <div class="content-body" ref="loadingRefContainer">
+                
+                <div class="row">
+                    <div class="col-sm-3 mb-15">
+                        <label class="form-label">Patient#</label>
+                        <input type="text" class="form-control" @change.prevent="getItems()" v-model="search.patient_number" />
+                    </div>
+                    <div class="col-sm-3 mb-15">
+                        <label class="form-label">Patient Name</label>
+                        <input type="text" class="form-control" @change.prevent="getItems()" v-model="search.name" />
+                    </div>
+                    <div class="col-sm-3 mb-15">
+                        <label class="form-label">Patient Mobile</label>
+                        <input type="text" class="form-control" @change.prevent="getItems()" v-model="search.mobile" />
+                    </div>
+                    <div class="col-sm-3 mb-15">
+                        <label class="form-label">Gender</label>
+                        <v-select
+                            id="gender_id"
+                            class="dropdown bg-white"
+                            v-model="search.gender_id"
+                            placeholder="--Select--"
+                            :clearable="true"
+                            :reduce="(option) => option.id"
+                            :options="genders"
+                            label="title"
+                            @close="getItems()"
+                        >
+                            <template v-slot:option="option">
+                                <div class="list-item">
+                                    {{ option.title }}
+                                </div>
+                            </template>
+                        </v-select>
+                    </div>
+                    <div class="col-sm-4 mb-15">
+                        <label class="form-label">Reffer(Doctor)</label>
+                        <v-select
+                            id="gender_id"
+                            class="dropdown bg-white"
+                            v-model="search.reffer_id"
+                            placeholder="--Select--"
+                            :clearable="true"
+                            :reduce="(option) => option.id"
+                            :options="reffers"
+                            label="name"
+                            @close="getItems()"
+                        >
+                            <template v-slot:option="option">
+                                <div class="list-item">
+                                    {{ option.name }}
+                                </div>
+                            </template>
+                        </v-select>
+                    </div>
+                    <div class="col-sm-8 mb-15">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control" @change.prevent="getItems()" v-model="search.address" />
+                    </div>
+                </div>
+
                 <section class="app-user-list">
                     <div class="card">
                         
@@ -140,7 +200,14 @@
                                             <td>
                                                 <div>
                                                     <!-- <span class="badge cursor-pointer mr-4 mt-2 mb-2" v-if="item.patient.gender" :class="'bg-'+item.patient.gender.slug">Patient#: {{ item.patient.patient_number }}</span> -->
-                                                    <div class="mt-10 mb-10">{{ item.patient_number }} / <strong>{{ item.name }}</strong> / {{ item.gender }}-{{ item.age }} / {{ item.mobile }}</div>
+                                                    <div class="mt-10 mb-10">
+                                                        {{ item.patient_number }} 
+                                                        <strong>{{ item.name?' / '+item.name:'' }}</strong> 
+                                                        {{ item.gender?' / '+item.gender:'' }} 
+                                                        {{ item.age?' / '+item.age:'' }} 
+                                                        {{ item.mobile?' / '+item.mobile:'' }} 
+                                                        {{ item.patient.address?' / '+item.patient.address:'' }}
+                                                    </div>
                                                 </div>
                                                 <span v-for="(t,tIndex) in item.patient_case_details" :key="tIndex">
                                                     <span class="badge bg-primary cursor-pointer mr-4 mt-2 mb-2" v-if="t.sub_test">
@@ -273,6 +340,7 @@ export default defineComponent({
     // },
     created(){
         this.getItems()
+        this.loadData()
     },
     setup(){
         const route = useRoute();
@@ -310,6 +378,15 @@ export default defineComponent({
         const showModal = ref(false)
         const modalName = ref('')
         const roleId : any = ref('')
+
+        const search : any = ref({})
+        const genders : any = ref([]);
+        const reffers : any = ref([]);
+
+        const loadData = () => {
+            getGenders()
+            getReffers()
+        }
         
         onMounted(() => {
             // window.addEventListener('mousemovenow', (event) => {
@@ -320,10 +397,25 @@ export default defineComponent({
         // const onCancelLoader =() => {
         //   console.log('User cancelled the loader.')
         // };
+        
+		const getGenders = () => {
+			axios.get(Helpers.completeUrl()+'/get/genders')
+			.then((res) => {
+				genders.value = res.data
+            })
+        }
+
+		const getReffers = () => {
+			axios.get(Helpers.completeUrl()+'/get/reffers')
+			.then((res) => {
+				reffers.value = res.data
+            })
+        }
 
         const getItems = (page = 1) => {
             loaderSettings.value.active = true;
             axios.post(Helpers.completeUrl()+pageLevelEndPoint.value+'/get?status='+activeStatus.value+'&page='+page,{
+                search: search.value,
                 perPageAction: perPageAction.value,
                 orderByAction: orderByAction.value,
             })
@@ -716,6 +808,10 @@ export default defineComponent({
             modalName,
             Helpers,
             roleId,
+            search,
+            loadData,
+            genders,
+            reffers,
         }
     }
 });

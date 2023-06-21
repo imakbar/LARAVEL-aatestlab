@@ -39,7 +39,7 @@
             <div class="content-body" ref="loadingRefContainer">
                 
                 <div class="row">
-                    <div class="col-sm-1 mb-15">
+                    <div class="col-sm-3 mb-15">
                         <label class="form-label">Patient#</label>
                         <input type="text" class="form-control" @change.prevent="getItems()" v-model="search.patient_number" />
                     </div>
@@ -47,11 +47,15 @@
                         <label class="form-label">Patient Name</label>
                         <input type="text" class="form-control" @change.prevent="getItems()" v-model="search.name" />
                     </div>
-                    <div class="col-sm-2 mb-15">
+                    <div class="col-sm-3 mb-15">
+                        <label class="form-label">Patient Mobile</label>
+                        <input type="text" class="form-control" @change.prevent="getItems()" v-model="search.mobile" />
+                    </div>
+                    <div class="col-sm-3 mb-15">
                         <label class="form-label">Gender</label>
                         <v-select
                             id="gender_id"
-                            class="dropdown"
+                            class="dropdown bg-white"
                             v-model="search.gender_id"
                             placeholder="--Select--"
                             :clearable="true"
@@ -67,11 +71,11 @@
                             </template>
                         </v-select>
                     </div>
-                    <div class="col-sm-3 mb-15">
+                    <div class="col-sm-4 mb-15">
                         <label class="form-label">Reffer(Doctor)</label>
                         <v-select
                             id="gender_id"
-                            class="dropdown"
+                            class="dropdown bg-white"
                             v-model="search.reffer_id"
                             placeholder="--Select--"
                             :clearable="true"
@@ -87,7 +91,7 @@
                             </template>
                         </v-select>
                     </div>
-                    <div class="col-sm-3 mb-15">
+                    <div class="col-sm-8 mb-15">
                         <label class="form-label">Address</label>
                         <input type="text" class="form-control" @change.prevent="getItems()" v-model="search.address" />
                     </div>
@@ -198,15 +202,14 @@
                                                         </span>
                                                     </div>
                                                     <div class="d-flex flex-column">
-                                                        <span class="text-size-11 text-bold">{{item.patient_number}}</span>
-                                                        <span class="user_name text-body text-truncate" v-if="item">
-                                                            <span class="fw-bolder">
-                                                                {{item.name}}
-                                                            </span>
-                                                        </span>
-                                                        <small class="emp_post text-muted">
-                                                            {{item.address}}
-                                                        </small>
+                                                        <div class="mt-10 mb-10">
+                                                            {{ item.patient_number }} 
+                                                            <strong>{{ item.name?' / '+item.name:'' }}</strong> 
+                                                            {{ item.gender?' / '+item.gender.title:'' }} 
+                                                            {{ item.age?' / '+item.age:'' }} 
+                                                            {{ item.mobile?' / '+item.mobile:'' }} 
+                                                            {{ item.address?' / '+item.address:'' }}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </td>

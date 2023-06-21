@@ -82,6 +82,10 @@ class PatientsController extends Controller
             $name = $request->search['name'];
             $Patients = $Patients->where("name", "LIKE", "%$name%");
         }
+        if(isset($request->search['mobile'])){
+            $mobile = $request->search['mobile'];
+            $Patients = $Patients->where("mobile", "LIKE", "%$mobile%");
+        }
         if(isset($request->search['gender_id'])){
             $gender_id = $request->search['gender_id'];
             $Patients = $Patients->where("gender_id", $gender_id);
