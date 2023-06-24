@@ -41,6 +41,15 @@ const routes: Array<RouteRecordRaw> = [
                 // },
             },
             {
+                name: 'payments',
+                path: '/admin/payments/:status?',
+                component: () => import("@/components/Payments.vue"),
+                // meta: {
+                //     transition: 'fade',
+                //     requiresAuth: false,
+                // },
+            },
+            {
                 name: 'tests',
                 path: '/admin/tests/:status?',
                 component: () => import("@/components/MainTests.vue"),

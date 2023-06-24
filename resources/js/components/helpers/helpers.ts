@@ -5,7 +5,10 @@ import _ from 'lodash';
 import { profile } from "console";
 
 // https://date-fns.org/v2.26.0/docs/formatDistanceToNow
-import { compareAsc, format } from 'date-fns'
+// import { compareAsc, format } from 'date-fns'
+
+import moment from 'moment';
+import 'moment-duration-format';
 
 // const pageLevelEndPoint = ref('/setup/beds')
 
@@ -498,6 +501,16 @@ export const phoneNumberFormat = (phoneNumber:any) => {
     return phoneNumber.substr(-10,10)
 }
 
+export const dateFormat = (date:any,f:string) => {
+    // return format(date, f) // 'yyyy-MM-dd'
+    return moment(date).format(f);
+}
+
+export const durationFormat = (date:any) => {
+    var dateData = moment(date);
+    return dateData.fromNow();
+}
+
 
 
 export default {
@@ -550,4 +563,6 @@ export default {
     phoneNumberMasking,
     phoneNumberFormat,
     lodashFilterByValue,
+    dateFormat,
+    durationFormat,
 }

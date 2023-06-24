@@ -39,9 +39,12 @@ import VueLazyLoad from 'vue3-lazyload'
 
 import timeago from 'vue-timeago3'
 
-import VueChatScroll from 'vue-chat-scroll'
+// import VueChatScroll from 'vue-chat-scroll'
 
 import CopyToClipboard from '@xqsit94/vue3-copy-to-clipboard'
+
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 // import 'sweetalert2/src/sweetalert2.scss'
 
@@ -95,11 +98,13 @@ app.component('Pagination', LaravelVuePagination)
 app.component('draggable', draggable)
 app.use(vfmPlugin)
 app.use(VueLazyLoad,{loading: ''})
-app.use(VueChatScroll)
+// app.use(VueChatScroll)
 
 app.use(BootstrapVue3)
 app.use(timeago)
 
 app.use(CopyToClipboard)
+
+app.component('VueDatePicker', VueDatePicker);
 
 app.mount('#app')

@@ -69,6 +69,8 @@ Route::post('/upload','Backend\FileManagerController@get');
 
 
 
+Route::post('/payments/get','Backend\PaymentsController@get');
+
 Route::post('/doctors/save','Backend\DoctorsController@save');
 Route::post('/doctors/edit','Backend\DoctorsController@edit');
 Route::post('/doctors/get','Backend\DoctorsController@get');
