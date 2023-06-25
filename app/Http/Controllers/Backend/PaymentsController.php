@@ -74,6 +74,20 @@ class PaymentsController extends Controller
             $address = $request->search['address'];
             $PCRs = $PCRs->where("patients.address", "LIKE", "%$address%");
         }
+        if(isset($request->search['date'])){
+            $date = $request->search['date'];
+            // return $date;
+            $PCRs = $PCRs->whereBetween("patient_case_receipts.created_date", $date);
+        }
+        if(isset($request->search['time'])){
+            $time = $request->search['time'];
+            // return $time;
+            $PCRs = $PCRs->whereBetween("patient_case_receipts.created_time", $time);
+        }
+        
+        // $PCRs = $PCRs->whereBetween("patient_case_receipts.created_date", ["2023-06-25 01:00:00", "2023-06-25 09:00:26"]);
+
+        // dd($PCRs->toSql());
 
         $orderByAction = checkValueNotEmptyInArray($PatientCaseReceipt->tableColumns());
         $orderByAction = $request->orderByAction?$request->orderByAction:$orderByAction;
@@ -97,6 +111,7 @@ class PaymentsController extends Controller
             'items' => $PCRs->with('createdBy.Profile')->paginate($perPageAction),
             'perPageOptions' => perPageOptions(),
             'tableColumns' => updateArray($PatientCaseReceipt->tableColumns(),$orderByAction),
+            'paidTotal' => $PCRs->sum('patient_case_receipts.paid')
         ];
     }
 

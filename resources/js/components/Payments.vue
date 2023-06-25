@@ -51,7 +51,41 @@
                             </template>
                         </v-select>
                     </div>
-                    <div class="col-sm-4 mb-15">
+                    <div class="col-sm-6 mb-15">
+                        <label class="form-label">Date</label>
+                        <VueDatePicker 
+                            v-model="searchData.date" 
+                            range 
+                            multi-calendars 
+                            :month-change-on-scroll="false" 
+                            :enable-time-picker="false"
+                            :format="'yyyy-mm-dd'" 
+                            @closed="selectDateRange()" 
+                            @cleared="clearDateRange()"
+                            placeholder="Select Date" 
+                            :preset-ranges="presetRanges">
+                            <template #yearly="{ label, range, presetDateRange }">
+                                <span @click="presetDateRange(range)">{{ label }}</span>
+                            </template>
+                        </VueDatePicker>
+                    </div>
+                    <div class="col-sm-6 mb-15">
+                        <label class="form-label">Time</label>
+                        <VueDatePicker 
+                            v-model="searchData.time" 
+                            range 
+                            time-picker 
+                            :month-change-on-scroll="false" 
+                            :enable-time-picker="true"
+                            :is-24="false"
+                            :format="'hh:mm a'" 
+                            @closed="selectTimeRange()" 
+                            @cleared="clearTimeRange()"
+                            placeholder="Select Time">
+                        </VueDatePicker>
+
+                    </div>
+                    <div class="col-sm-3 mb-15">
                         <label class="form-label">Reffer(Doctor)</label>
                         <v-select
                             id="gender_id"
@@ -71,16 +105,12 @@
                             </template>
                         </v-select>
                     </div>
-                    <div class="col-sm-8 mb-15">
+                    <div class="col-sm-3 mb-15">
                         <label class="form-label">Address</label>
                         <input type="text" class="form-control" @change.prevent="getItems()" v-model="search.address" />
                     </div>
-                    <div class="col-sm-6 mb-15">
-                        <label class="form-label">Date</label>
-                        <VueDatePicker v-model="search.date" range multi-calendars />
-                    </div>
-                    <div class="col-sm-6 mb-15">
-                        <button @click.prevent="getItems()">Search</button>
+                    <div class="d-flex justify-content-end mb-15">
+                        <button class="btn btn-primary" @click.prevent="getItems()">Search</button>
                     </div>
                 </div>
 
@@ -93,6 +123,7 @@
                         <div v-if="Helpers.hasPermission('case_management','can_view')">
                             <div class="list-top-header">
                                 <div class="col_right">
+                                    Total Collection: <strong>{{ paidTotal }}</strong>
                                 </div>
                                 <div class="col_right per_page_options">
                                     <span>Show</span>
@@ -152,9 +183,9 @@
                                                 <span>{{item.paid}}</span>
                                             </td>
                                             <td>
-                                                <div>{{Helpers.durationFormat(item.created_at)}}</div>
-                                                <div>{{Helpers.dateFormat(item.created_at,'YYYY-MM-DD')}}</div>
-                                                <div>{{Helpers.dateFormat(item.created_at,'hh:mm a')}}</div>
+                                                <div>{{Helpers.durationFormat(item.created_date)}}</div>
+                                                <div>{{Helpers.dateFormat(item.created_date,'YYYY-MM-DD')}}</div>
+                                                <div>{{Helpers.dateFormat(item.created_date+' '+item.created_time,'hh:mm a')}}</div>
                                             </td>
                                             <td>
                                                 <ProfileAvatarAndName :user="item.created_by"></ProfileAvatarAndName>
@@ -196,6 +227,7 @@ import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 // import feather from 'feather-icons';
 import { Actions, Mutations } from "../store/enums/StoreEnums";
+import { endOfMonth, endOfYear, startOfMonth, startOfYear, subMonths } from 'date-fns';
 
 import Status from "@/components/global/Status.vue";
 import PermissionError from "@/components/global/PermissionError.vue";
@@ -233,6 +265,7 @@ export default defineComponent({
         });
         
         const payments : any = ref([]);
+        const paidTotal : any = ref(0)
         const recordId = ref('');
         const actionMode = ref('')
         
@@ -247,8 +280,24 @@ export default defineComponent({
         const roleId : any = ref('')
 
         const search : any = ref({})
+        const searchData : any = ref({})
         const genders : any = ref([]);
         const reffers : any = ref([]);
+
+        const presetRanges = ref([
+            { label: 'Today', range: [new Date(), new Date()] },
+            { label: 'This month', range: [startOfMonth(new Date()), endOfMonth(new Date())] },
+            {
+                label: 'Last month',
+                range: [startOfMonth(subMonths(new Date(), 1)), endOfMonth(subMonths(new Date(), 1))],
+            },
+            { label: 'This year', range: [startOfYear(new Date()), endOfYear(new Date())] },
+            {
+                label: 'This year (slot)',
+                range: [startOfYear(new Date()), endOfYear(new Date())],
+                slot: 'yearly',
+            },
+        ]);
 
         const loadData = () => {
             getGenders()
@@ -269,6 +318,36 @@ export default defineComponent({
             })
         }
 
+        const selectDateRange = () => {
+            // console.log('selectDateRange=',searchData.value.date[0])
+            var start = ''
+            var end = ''
+            if(searchData.value.date.length > 0){
+                start = Helpers.dateFormat(searchData.value.date[0],'YYYY-MM-DD')
+                end = Helpers.dateFormat(searchData.value.date[1],'YYYY-MM-DD')
+            }
+            search.value.date = [start,end]
+        }
+        
+        const clearDateRange = () => {
+            search.value.date = ''
+        }
+
+        const selectTimeRange = () => {
+            // console.log('selectTimeRange=',searchData.value.time[0])
+            var start = ''
+            var end = ''
+            if(searchData.value.time.length > 0){
+                start = Helpers.dateFormat(searchData.value.time[0],'HH:mm:ss')
+                end = Helpers.dateFormat(searchData.value.time[1],'HH:mm:ss')
+            }
+            search.value.time = [start,end]
+        }
+        
+        const clearTimeRange = () => {
+            search.value.time = ''
+        }
+
         const getItems = (page = 1) => {
             loaderSettings.value.active = true;
             axios.post(Helpers.completeUrl()+pageLevelEndPoint.value+'/get?page='+page,{
@@ -278,6 +357,7 @@ export default defineComponent({
             })
                 .then(res => {
                     payments.value = res.data.items
+                    paidTotal.value = res.data.paidTotal
                     perPageAction.value = res.data.items.per_page
                     perPageOptions.value = res.data.perPageOptions
                     tableColumns.value = res.data.tableColumns
@@ -384,6 +464,7 @@ export default defineComponent({
             loaderSettings,
 
             payments,
+            paidTotal,
             userRoleType,
             recordId,
             actionMode,
@@ -405,9 +486,15 @@ export default defineComponent({
             Helpers,
             roleId,
             search,
+            searchData,
             loadData,
             genders,
             reffers,
+            selectDateRange,
+            clearDateRange,
+            selectTimeRange,
+            clearTimeRange,
+            presetRanges,
         }
     }
 });
