@@ -89,11 +89,12 @@ __webpack_require__.r(__webpack_exports__);
     }, {
       label: 'This year',
       range: [(0,date_fns__WEBPACK_IMPORTED_MODULE_13__["default"])(new Date()), (0,date_fns__WEBPACK_IMPORTED_MODULE_14__["default"])(new Date())]
-    }, {
-      label: 'This year (slot)',
-      range: [(0,date_fns__WEBPACK_IMPORTED_MODULE_13__["default"])(new Date()), (0,date_fns__WEBPACK_IMPORTED_MODULE_14__["default"])(new Date())],
-      slot: 'yearly'
-    }]);
+    } // {
+    //     label: 'This year (slot)',
+    //     range: [startOfYear(new Date()), endOfYear(new Date())],
+    //     slot: 'yearly',
+    // },
+    ]);
 
     var loadData = function loadData() {
       getGenders();
@@ -569,7 +570,7 @@ var _hoisted_24 = {
   "class": "list-item"
 };
 var _hoisted_25 = {
-  "class": "col-sm-3 mb-15"
+  "class": "col-sm-6 mb-15"
 };
 
 var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
@@ -579,7 +580,7 @@ var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 );
 
 var _hoisted_27 = {
-  "class": "d-flex justify-content-end mb-15"
+  "class": "col-sm-3 mb-15"
 };
 var _hoisted_28 = {
   "class": "app-user-list"
@@ -812,7 +813,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 544
   /* HYDRATE_EVENTS, NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.search.address]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "btn btn-primary",
+    "class": "btn btn-primary mt-23",
     onClick: _cache[18] || (_cache[18] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return _ctx.getItems();
     }, ["prevent"]))

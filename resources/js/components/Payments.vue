@@ -105,12 +105,12 @@
                             </template>
                         </v-select>
                     </div>
-                    <div class="col-sm-3 mb-15">
+                    <div class="col-sm-6 mb-15">
                         <label class="form-label">Address</label>
                         <input type="text" class="form-control" @change.prevent="getItems()" v-model="search.address" />
                     </div>
-                    <div class="d-flex justify-content-end mb-15">
-                        <button class="btn btn-primary" @click.prevent="getItems()">Search</button>
+                    <div class="col-sm-3 mb-15">
+                        <button class="btn btn-primary mt-23" @click.prevent="getItems()">Search</button>
                     </div>
                 </div>
 
@@ -292,11 +292,11 @@ export default defineComponent({
                 range: [startOfMonth(subMonths(new Date(), 1)), endOfMonth(subMonths(new Date(), 1))],
             },
             { label: 'This year', range: [startOfYear(new Date()), endOfYear(new Date())] },
-            {
-                label: 'This year (slot)',
-                range: [startOfYear(new Date()), endOfYear(new Date())],
-                slot: 'yearly',
-            },
+            // {
+            //     label: 'This year (slot)',
+            //     range: [startOfYear(new Date()), endOfYear(new Date())],
+            //     slot: 'yearly',
+            // },
         ]);
 
         const loadData = () => {
